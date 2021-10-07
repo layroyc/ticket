@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ticket的登录</title>
+    <script src="/res/layui-v2.5.6/layui/layui.js"></script>
+    <link rel="stylesheet" href="/res/layui-v2.5.6/layui/css/layui.css">
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        #nav{
+            width: 100%;
+            height: 30px;
+            background-color: #3B99FC;
+        }
+        #login{
+            margin-top:60px ;
+            margin-left:270px ;
+        }
+    </style>
+</head>
+<body>
+<div id="head">
+    <img  src="/img/logo.png" />
+</div>
+<div id="nav">
+</div>
+
+<div id="login">
+    <form class="layui-form" action="" lay-filter="testform" onsubmit="return false">
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="username" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-inline">
+                <input type="password" name="password" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-inline">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox">请记住我
+                    </label>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formLogin">登录</button>
+                <!--<button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    layui.use(['form','jquery','layer'], function(args){
+        var form = layui.form;
+        var layer = layui.layer;
+        var $ = layui.jquery;
+        form.on('submit(formLogin)', function(data){
+            console.log('data是什么')
+            console.log(data)
+            console.log("data.elem 原始DOM对象");
+            console.log(data.elem); //原始DOM对象
+            console.log("data.value 被选中的值");
+            console.log(data.value); //被选中的值
+            console.log("data.othis 美化后的DOM对象")
+            console.log(data.othis ); //美化后的DOM对象
+            console.log("data.field data中的form下的name属性");
+            console.log(data.field);//data中的form下的name属性
+            console.log("data.username data中的form下的name='username'属性");
+            console.log(data.username);//data中的form下的name='username'属性
+            //点击后 发送ajax 给后台
+            $.ajax({
+                url:'/api/admin/login',
+                type:'POST',
+                data:data.field,
+                success:function (res) {
+                    console.log(res)
+                    if(res.code==0){
+                        //需要跳转 后台界面 前后端分离，页面跳转有前端复制
+                        //1.get 传参
+                        //window.location.href="/res/home.html?account="+res.account;
+                        //2.localstroage    或放在 sessionstroage
+                        sessionStorage.setItem("username",res.username)
+                        window.location.href="/res/homepage.html";
+                    }else {
+                        layer.msg(res.msg)
+                    }
+                },
+                dataType:'json'
+            });
+        });
+
+    });
+</script>
+</body>
+</html>

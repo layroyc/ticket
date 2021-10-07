@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiexin.dao.SelectticketDAO">
+  <resultMap id="BaseResultMap" type="com.xiexin.bean.Selectticket">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="placestart" jdbcType="VARCHAR" property="placestart" />
+    <result column="placeEnd" jdbcType="VARCHAR" property="placeend" />
+    <result column="startDate" jdbcType="DATE" property="startdate" />
+    <result column="checi" jdbcType="VARCHAR" property="checi" />
+    <result column="StartTime" jdbcType="VARCHAR" property="starttime" />
+    <result column="endTime" jdbcType="VARCHAR" property="endtime" />
+    <result column="TeDeng" jdbcType="VARCHAR" property="tedeng" />
+    <result column="OneZuo" jdbcType="VARCHAR" property="onezuo" />
+    <result column="TwoZuo" jdbcType="VARCHAR" property="twozuo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, placestart, placeEnd, startDate, checi, StartTime, endTime, TeDeng, OneZuo, TwoZuo
+  </sql>
+  <select id="selectByExample" parameterType="com.xiexin.bean.SelectticketExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from selectticket
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from selectticket
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from selectticket
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiexin.bean.SelectticketExample">
+    delete from selectticket
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiexin.bean.Selectticket">
+    insert into selectticket (id, placestart, placeEnd, 
+      startDate, checi, StartTime, 
+      endTime, TeDeng, OneZuo, 
+      TwoZuo)
+    values (#{id,jdbcType=INTEGER}, #{placestart,jdbcType=VARCHAR}, #{placeend,jdbcType=VARCHAR}, 
+      #{startdate,jdbcType=DATE}, #{checi,jdbcType=VARCHAR}, #{starttime,jdbcType=VARCHAR}, 
+      #{endtime,jdbcType=VARCHAR}, #{tedeng,jdbcType=VARCHAR}, #{onezuo,jdbcType=VARCHAR}, 
+      #{twozuo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiexin.bean.Selectticket">
+    insert into selectticket
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="placestart != null">
+        placestart,
+      </if>
+      <if test="placeend != null">
+        placeEnd,
+      </if>
+      <if test="startdate != null">
+        startDate,
+      </if>
+      <if test="checi != null">
+        checi,
+      </if>
+      <if test="starttime != null">
+        StartTime,
+      </if>
+      <if test="endtime != null">
+        endTime,
+      </if>
+      <if test="tedeng != null">
+        TeDeng,
+      </if>
+      <if test="onezuo != null">
+        OneZuo,
+      </if>
+      <if test="twozuo != null">
+        TwoZuo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="placestart != null">
+        #{placestart,jdbcType=VARCHAR},
+      </if>
+      <if test="placeend != null">
+        #{placeend,jdbcType=VARCHAR},
+      </if>
+      <if test="startdate != null">
+        #{startdate,jdbcType=DATE},
+      </if>
+      <if test="checi != null">
+        #{checi,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="tedeng != null">
+        #{tedeng,jdbcType=VARCHAR},
+      </if>
+      <if test="onezuo != null">
+        #{onezuo,jdbcType=VARCHAR},
+      </if>
+      <if test="twozuo != null">
+        #{twozuo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiexin.bean.SelectticketExample" resultType="java.lang.Long">
+    select count(*) from selectticket
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update selectticket
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.placestart != null">
+        placestart = #{record.placestart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.placeend != null">
+        placeEnd = #{record.placeend,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startdate != null">
+        startDate = #{record.startdate,jdbcType=DATE},
+      </if>
+      <if test="record.checi != null">
+        checi = #{record.checi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.starttime != null">
+        StartTime = #{record.starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endtime != null">
+        endTime = #{record.endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tedeng != null">
+        TeDeng = #{record.tedeng,jdbcType=VARCHAR},
+      </if>
+      <if test="record.onezuo != null">
+        OneZuo = #{record.onezuo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.twozuo != null">
+        TwoZuo = #{record.twozuo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update selectticket
+    set id = #{record.id,jdbcType=INTEGER},
+      placestart = #{record.placestart,jdbcType=VARCHAR},
+      placeEnd = #{record.placeend,jdbcType=VARCHAR},
+      startDate = #{record.startdate,jdbcType=DATE},
+      checi = #{record.checi,jdbcType=VARCHAR},
+      StartTime = #{record.starttime,jdbcType=VARCHAR},
+      endTime = #{record.endtime,jdbcType=VARCHAR},
+      TeDeng = #{record.tedeng,jdbcType=VARCHAR},
+      OneZuo = #{record.onezuo,jdbcType=VARCHAR},
+      TwoZuo = #{record.twozuo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiexin.bean.Selectticket">
+    update selectticket
+    <set>
+      <if test="placestart != null">
+        placestart = #{placestart,jdbcType=VARCHAR},
+      </if>
+      <if test="placeend != null">
+        placeEnd = #{placeend,jdbcType=VARCHAR},
+      </if>
+      <if test="startdate != null">
+        startDate = #{startdate,jdbcType=DATE},
+      </if>
+      <if test="checi != null">
+        checi = #{checi,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        StartTime = #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null">
+        endTime = #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="tedeng != null">
+        TeDeng = #{tedeng,jdbcType=VARCHAR},
+      </if>
+      <if test="onezuo != null">
+        OneZuo = #{onezuo,jdbcType=VARCHAR},
+      </if>
+      <if test="twozuo != null">
+        TwoZuo = #{twozuo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiexin.bean.Selectticket">
+    update selectticket
+    set placestart = #{placestart,jdbcType=VARCHAR},
+      placeEnd = #{placeend,jdbcType=VARCHAR},
+      startDate = #{startdate,jdbcType=DATE},
+      checi = #{checi,jdbcType=VARCHAR},
+      StartTime = #{starttime,jdbcType=VARCHAR},
+      endTime = #{endtime,jdbcType=VARCHAR},
+      TeDeng = #{tedeng,jdbcType=VARCHAR},
+      OneZuo = #{onezuo,jdbcType=VARCHAR},
+      TwoZuo = #{twozuo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

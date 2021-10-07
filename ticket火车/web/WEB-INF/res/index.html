@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #nav {
+            width: 100%;
+            height: 30px;
+            background-color: #3B99FC;
+        }
+
+        #content {
+            width: 800px;
+            margin-top: 40px;
+            position: relative;
+        }
+
+        #ss {
+            width: 530px;
+            height: 250px;
+            padding-top: 20px;
+            padding-left: 30px;
+            position: absolute;
+            top: 50px;
+            left: 80px;
+            background-color: white;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div id="head">
+    <img src="img/logo.png"/>
+</div>
+<div id="nav">
+
+</div>
+<div id="content">
+    <div id="img">
+        <img src="img/18.jpg"/>
+    </div>
+    <div id="ss">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label for="firstname" class="col-sm-2 control-label">出发地</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control input" id="firstname" placeholder="请输入出发地">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="lastname" class="col-sm-2 control-label">目的地</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control " id="lastname" placeholder="请输入姓目的地">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="beforname" class="col-sm-2 control-label">出发时间</label>
+                <div class="col-sm-4">
+                    <input type="date" class="form-control " id="beforname" placeholder="请输入姓目的地">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-default">查询</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+</body>
+</html>

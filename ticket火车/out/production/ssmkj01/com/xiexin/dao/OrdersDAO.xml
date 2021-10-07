@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiexin.dao.OrdersDAO">
+  <resultMap id="BaseResultMap" type="com.xiexin.bean.Orders">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="orderId" jdbcType="VARCHAR" property="orderid" />
+    <result column="checi" jdbcType="VARCHAR" property="checi" />
+    <result column="yudingTime" jdbcType="VARCHAR" property="yudingtime" />
+    <result column="zuowei" jdbcType="VARCHAR" property="zuowei" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="chengPerson" jdbcType="VARCHAR" property="chengperson" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, orderId, checi, yudingTime, zuowei, price, chengPerson
+  </sql>
+  <select id="selectByExample" parameterType="com.xiexin.bean.OrdersExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from orders
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from orders
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xiexin.bean.OrdersExample">
+    delete from orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xiexin.bean.Orders">
+    insert into orders (id, orderId, checi, 
+      yudingTime, zuowei, price, 
+      chengPerson)
+    values (#{id,jdbcType=INTEGER}, #{orderid,jdbcType=VARCHAR}, #{checi,jdbcType=VARCHAR}, 
+      #{yudingtime,jdbcType=VARCHAR}, #{zuowei,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, 
+      #{chengperson,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiexin.bean.Orders">
+    insert into orders
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderid != null">
+        orderId,
+      </if>
+      <if test="checi != null">
+        checi,
+      </if>
+      <if test="yudingtime != null">
+        yudingTime,
+      </if>
+      <if test="zuowei != null">
+        zuowei,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="chengperson != null">
+        chengPerson,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderid != null">
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="checi != null">
+        #{checi,jdbcType=VARCHAR},
+      </if>
+      <if test="yudingtime != null">
+        #{yudingtime,jdbcType=VARCHAR},
+      </if>
+      <if test="zuowei != null">
+        #{zuowei,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="chengperson != null">
+        #{chengperson,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xiexin.bean.OrdersExample" resultType="java.lang.Long">
+    select count(*) from orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update orders
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderid != null">
+        orderId = #{record.orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checi != null">
+        checi = #{record.checi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yudingtime != null">
+        yudingTime = #{record.yudingtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zuowei != null">
+        zuowei = #{record.zuowei,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DOUBLE},
+      </if>
+      <if test="record.chengperson != null">
+        chengPerson = #{record.chengperson,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update orders
+    set id = #{record.id,jdbcType=INTEGER},
+      orderId = #{record.orderid,jdbcType=VARCHAR},
+      checi = #{record.checi,jdbcType=VARCHAR},
+      yudingTime = #{record.yudingtime,jdbcType=VARCHAR},
+      zuowei = #{record.zuowei,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DOUBLE},
+      chengPerson = #{record.chengperson,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiexin.bean.Orders">
+    update orders
+    <set>
+      <if test="orderid != null">
+        orderId = #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="checi != null">
+        checi = #{checi,jdbcType=VARCHAR},
+      </if>
+      <if test="yudingtime != null">
+        yudingTime = #{yudingtime,jdbcType=VARCHAR},
+      </if>
+      <if test="zuowei != null">
+        zuowei = #{zuowei,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="chengperson != null">
+        chengPerson = #{chengperson,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiexin.bean.Orders">
+    update orders
+    set orderId = #{orderid,jdbcType=VARCHAR},
+      checi = #{checi,jdbcType=VARCHAR},
+      yudingTime = #{yudingtime,jdbcType=VARCHAR},
+      zuowei = #{zuowei,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE},
+      chengPerson = #{chengperson,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
